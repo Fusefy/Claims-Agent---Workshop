@@ -1,0 +1,302 @@
+{
+  "modelInfo": {
+    "name": "Claims-Processing-Agent-Core",
+    "version": "v2.1.0",
+    "status": "production",
+    "lastUpdated": "2025-11-05T15:31:30.361144",
+    "approvedBy": "Dr. Sarah Chen",
+    "approvedDate": "2025-11-05"
+  },
+  "metrics": {
+    "Claims Processing Straight-Through Rate": 98.1,
+    "Error Rate on Approved Claims": 1.3,
+    "Time to Adjudication Reduction": 4.2,
+    "Claim Denial Rate": 6.7,
+    "Compliance Dashboard Accuracy": 97.6,
+    "Integration Accuracy": 98.9,
+    "Processing Latency": 7.0,
+    "Error Rate on Approved Claims_explanation": "Proportion of processing errors found in claims that were approved, indicating quality control effectiveness.",
+    "Time to Adjudication Reduction_explanation": "Percentage improvement in claim adjudication speed compared to manual processing baseline.",
+    "Claim Denial Rate_explanation": "Proportion of claims denied by the system, reflecting accuracy in policy validation and fraud detection.",
+    "Compliance Dashboard Accuracy_explanation": "Accuracy of compliance reporting dashboards in correctly reflecting processed claims data and regulatory status.",
+    "Integration Accuracy_explanation": "Correctness of data synchronization and integration with existing insurance management systems.",
+    "Claims Processing Straight-Through Rate_explanation": "Percentage of claims processed automatically without requiring manual intervention or review.",
+    "Processing Latency_explanation": "Average time in seconds required to process a claim from intake to decision."
+  },
+  "sbom": {
+    "totalComponents": 142,
+    "criticalVulnerabilities": 0,
+    "highVulnerabilities": 0,
+    "mediumVulnerabilities": 1,
+    "lowVulnerabilities": 2,
+    "components": [
+      {
+        "name": "fastapi",
+        "version": "0.115.2",
+        "license": "MIT",
+        "vulnerabilities": 0,
+        "severity": "none",
+        "type": "Web Framework"
+      },
+      {
+        "name": "pydantic",
+        "version": "2.8.0",
+        "license": "MIT",
+        "vulnerabilities": 0,
+        "severity": "none",
+        "type": "Data Validation"
+      },
+      {
+        "name": "pandas",
+        "version": "2.2.3",
+        "license": "BSD-3-Clause",
+        "vulnerabilities": 1,
+        "severity": "low",
+        "type": "Data Processing"
+      },
+      {
+        "name": "numpy",
+        "version": "1.26.0",
+        "license": "BSD-3-Clause",
+        "vulnerabilities": 1,
+        "severity": "low",
+        "type": "Numerical Computing"
+      }
+    ]
+  },
+  "cspm": {
+    "overallScore": 93.5,
+    "policies": [
+      {
+        "name": "Claims Data Encryption",
+        "status": "compliant",
+        "score": 95.0,
+        "issues": 0
+      },
+      {
+        "name": "Processing Access Control",
+        "status": "compliant",
+        "score": 91.0,
+        "issues": 0
+      },
+      {
+        "name": "Integration Security",
+        "status": "compliant",
+        "score": 91.0,
+        "issues": 0
+      },
+      {
+        "name": "Compliance Audit Trail",
+        "status": "compliant",
+        "score": 95.0,
+        "issues": 0
+      }
+    ]
+  },
+  "securityThreats": {
+    "promptInjection": {
+      "riskLevel": "low",
+      "detectedAttempts": 4,
+      "blockedAttempts": 4,
+      "successRate": 100.0,
+      "commonPatterns": [
+        "Claims data manipulation attempts",
+        "Processing rule override injection",
+        "Fraudulent approval requests"
+      ]
+    },
+    "toolAbuse": {
+      "riskLevel": "low",
+      "detectedAttempts": 1,
+      "blockedAttempts": 1,
+      "successRate": 100.0,
+      "commonPatterns": [
+        "Unauthorized claims database access",
+        "Integration endpoint misuse"
+      ]
+    },
+    "threats": [
+      {
+        "type": "Processing Manipulation",
+        "severity": "low",
+        "count": 3,
+        "blocked": 3,
+        "date": "2025-11-03"
+      },
+      {
+        "type": "Data Access Violation",
+        "severity": "medium",
+        "count": 2,
+        "blocked": 2,
+        "date": "2025-11-04"
+      }
+    ]
+  },
+  "vulnerabilityLibrary": [
+    {
+      "id": "CVE-2024-7234",
+      "severity": "low",
+      "component": "pandas",
+      "description": "Memory exhaustion with large CSV processing operations.",
+      "cvss": 3.4,
+      "status": "patched",
+      "discoveredDate": "2025-07-28"
+    },
+    {
+      "id": "CVE-2025-1789",
+      "severity": "low",
+      "component": "numpy",
+      "description": "Buffer overflow in matrix operations with malformed input.",
+      "cvss": 2.9,
+      "status": "open",
+      "discoveredDate": "2025-08-20"
+    }
+  ],
+  "versionHistory": [
+    {
+      "version": "v2.1.0",
+      "date": "2025-11-05",
+      "status": "production",
+      "changes": "Enhanced claims processing with improved straight-through rate and reduced latency. Added comprehensive compliance dashboard."
+    },
+    {
+      "version": "v2.0.3",
+      "date": "2025-10-22",
+      "status": "approved",
+      "changes": "Improved integration accuracy with legacy insurance systems. Enhanced error handling."
+    },
+    {
+      "version": "v2.0.2",
+      "date": "2025-10-15",
+      "status": "approved",
+      "changes": "Optimized processing latency and improved denial rate accuracy."
+    },
+    {
+      "version": "v2.0.0",
+      "date": "2025-09-30",
+      "status": "under_testing",
+      "changes": "Major release with focus on operational efficiency metrics and compliance automation."
+    }
+  ],
+  "chartData": {
+    "metricsOverTime": [
+      {
+        "date": "2025-09-30",
+        "Claims Processing Straight-Through Rate": 97.4,
+        "Error Rate on Approved Claims": 1.1,
+        "Time to Adjudication Reduction": 6.7,
+        "Claim Denial Rate": 6.7,
+        "Compliance Dashboard Accuracy": 92.0,
+        "Integration Accuracy": 95.3,
+        "Processing Latency": 4.0,
+        "recoveryRate": 85.5,
+        "errorRate": 5.4,
+        "averageSteps": 8.5
+      },
+      {
+        "date": "2025-10-15",
+        "Claims Processing Straight-Through Rate": 98.6,
+        "Error Rate on Approved Claims": 1.4,
+        "Time to Adjudication Reduction": 3.9,
+        "Claim Denial Rate": 5.4,
+        "Compliance Dashboard Accuracy": 94.6,
+        "Integration Accuracy": 97.0,
+        "Processing Latency": 6.0,
+        "recoveryRate": 89.4,
+        "errorRate": 4.0,
+        "averageSteps": 8.1
+      },
+      {
+        "date": "2025-11-05",
+        "Claims Processing Straight-Through Rate": 99.7,
+        "Error Rate on Approved Claims": 1.6,
+        "Time to Adjudication Reduction": 1.4,
+        "Claim Denial Rate": 6.4,
+        "Compliance Dashboard Accuracy": 97.8,
+        "Integration Accuracy": 98.6,
+        "Processing Latency": 2.0,
+        "recoveryRate": 93.2,
+        "errorRate": 2.5,
+        "averageSteps": 7.4
+      }
+    ],
+    "vulnerabilityTrends": [
+      {
+        "date": "2025-09-30",
+        "critical": 0,
+        "high": 0,
+        "medium": 1,
+        "low": 2
+      },
+      {
+        "date": "2025-10-15",
+        "critical": 0,
+        "high": 0,
+        "medium": 1,
+        "low": 2
+      },
+      {
+        "date": "2025-11-05",
+        "critical": 0,
+        "high": 0,
+        "medium": 1,
+        "low": 2
+      }
+    ],
+    "threatDetection": [
+      {
+        "type": "Processing Manipulation",
+        "detected": 3,
+        "blocked": 3
+      },
+      {
+        "type": "Data Access Violation",
+        "detected": 2,
+        "blocked": 2
+      },
+      {
+        "type": "Integration Abuse",
+        "detected": 1,
+        "blocked": 1
+      }
+    ]
+  },
+  "agentEvaluators": [
+    {
+      "name": "StraightThroughRateEvaluator",
+      "signal": "Claims Processing Straight-Through Rate",
+      "definition": "Measures percentage of claims processed end-to-end without manual intervention.",
+      "judging_method": "automated processing pipeline analysis with manual intervention tracking"
+    },
+    {
+      "name": "ProcessingQualityEvaluator",
+      "signal": "Error Rate on Approved Claims",
+      "definition": "Evaluates processing accuracy by tracking errors in claims that were approved by the system.",
+      "judging_method": "post-processing audit validation against ground truth data"
+    },
+    {
+      "name": "AdjudicationEfficiencyEvaluator",
+      "signal": "Time to Adjudication Reduction",
+      "definition": "Measures improvement in claim adjudication speed compared to baseline manual processing.",
+      "judging_method": "temporal analysis of claim lifecycle duration before and after automation"
+    },
+    {
+      "name": "ComplianceDashboardEvaluator",
+      "signal": "Compliance Dashboard Accuracy",
+      "definition": "Validates accuracy of compliance reporting dashboards in reflecting processed claims data.",
+      "judging_method": "dashboard data validation against source claim records and regulatory requirements"
+    },
+    {
+      "name": "IntegrationEvaluator",
+      "signal": "Integration Accuracy",
+      "definition": "Assesses correctness of data integration and synchronization with existing insurance systems.",
+      "judging_method": "end-to-end data flow validation and system integration testing"
+    },
+    {
+      "name": "LatencyEvaluator",
+      "signal": "Processing Latency",
+      "definition": "Measures system efficiency through average time required to process individual claims.",
+      "judging_method": "performance monitoring and latency analysis across processing pipeline stages"
+    }
+  ]
+}

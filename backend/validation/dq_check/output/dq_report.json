@@ -1,0 +1,134 @@
+{
+  "report_metadata": {
+    "generated_at": "2025-11-19T15:04:22.360357",
+    "pipeline_version": "2.0.0 (with PII masking)",
+    "input_file": "Synthetic_dataset.csv",
+    "output_file": "../../../datasets/CLM_AI_UC_001/Golden_dataset.csv",
+    "pii_masked": true
+  },
+  "transformation_summary": {
+    "original_shape": {
+      "rows": 121,
+      "columns": 11
+    },
+    "final_shape": {
+      "rows": 100,
+      "columns": 11
+    },
+    "rows_removed": 21,
+    "data_completeness_pct": 100.0,
+    "total_fixes_applied": 16
+  },
+  "data_quality_metrics": {
+    "duplicate_claim_ids": 0,
+    "duplicate_rows": 0,
+    "total_nulls_found": 0,
+    "critical_nulls": 0,
+    "invalid_claim_ids": 0,
+    "invalid_dates": "0",
+    "invalid_dates_removed": 0,
+    "future_dates": "1",
+    "very_old_dates": 0,
+    "non_numeric_amounts": 0,
+    "negative_amounts_fixed": 0,
+    "categorical_typos_fixed": "65",
+    "approved_without_amount": 0,
+    "approved_amount_filled": 0,
+    "approved_exceeds_claim_fixed": 0,
+    "denied_without_reason_fixed": "19",
+    "denied_amount_set_to_zero": "40",
+    "pending_amount_filled": "6",
+    "status_inferred_from_amounts": "2",
+    "masked_patient_ids": "121",
+    "masked_policy_ids": "121",
+    "null_fixes": "105",
+    "total_fixes": 16,
+    "rows_removed": 21,
+    "final_rows": 100,
+    "data_completeness_pct": 100.0
+  },
+  "issues_found": {
+    "critical": [],
+    "errors": [
+      {
+        "field": "Date_of_Service",
+        "message": "1 future dates - rows removed"
+      },
+      {
+        "field": "Claim_Status",
+        "message": "32 approved claims have error types - changed to Pending"
+      }
+    ],
+    "warnings": [],
+    "total_issues": 2
+  },
+  "fixes_applied": [
+    "Masked 121 Patient_IDs",
+    "Masked 121 Policy_IDs",
+    "Removed 1 rows with future dates",
+    "Standardized dates to YYYY-MM-DD format",
+    "Numeric fields cleaned and rounded to 2 decimals",
+    "Fixed 64 typos in Network_Status",
+    "Fixed 1 typos in Claim_Status",
+    "Categorical fields normalized",
+    "Inferred 2 claims as 'Pending' (has error, no denial reason)",
+    "Changed 32 claims from 'Approved' to 'Pending' (has error type)",
+    "Set 26 denied claims Approved_Amount to 0.0",
+    "Filled 14 denied claims with Approved_Amount = 0.0",
+    "Filled 19 missing denial reasons",
+    "Filled 6 pending claims with NULL Approved_Amount \u2192 0.0",
+    "Filled 105 null values",
+    "Trimmed to 100 rows (removed 20)"
+  ],
+  "data_statistics": {
+    "null_counts_by_column": {
+      "Claim_ID": 0,
+      "Patient_ID": 0,
+      "Policy_ID": 0,
+      "Claim_Type": 0,
+      "Network_Status": 0,
+      "Date_of_Service": 0,
+      "Claim_Amount": 0,
+      "Approved_Amount": 0,
+      "Claim_Status": 0,
+      "Error_Type": 0,
+      "Denial_Reason": 0
+    },
+    "categorical_distributions": {
+      "claim_type": {
+        "Dental": 26,
+        "Surgery": 21,
+        "Emergency": 21,
+        "General": 19,
+        "Pharmacy": 13
+      },
+      "network_status": {
+        "Out-of-Network": 53,
+        "In-Network": 47
+      },
+      "claim_status": {
+        "Pending": 58,
+        "Denied": 34,
+        "Approved": 8
+      }
+    },
+    "amount_statistics": {
+      "claim_amount": {
+        "count": 100,
+        "total": 225481.39,
+        "mean": 2254.81,
+        "median": 2288.81,
+        "min": 53.19,
+        "max": 4853.17
+      },
+      "approved_amount": {
+        "count": 100,
+        "total": 75272.97,
+        "mean": 752.73,
+        "median": 217.76,
+        "min": 0.0,
+        "max": 4164.1
+      }
+    }
+  }
+}

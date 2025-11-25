@@ -1,0 +1,54 @@
+{
+  "run_id": "2025-11-24_job004",
+  "job_id": "CLAIMS_AGENT_JOB004",
+  "input_dataset": "ds_claims_core_001",
+  "model_id": "Claims-Processing-Agent-Core_v2.2.0",
+  "model_type": "claims_processing_agent",
+  "is_baseline": false,
+  "monitoring_window": {
+    "start_time": "2025-11-24T00:00:00Z",
+    "end_time": "2025-11-24T23:59:59Z"
+  },
+  "metrics": {
+    "Claims Processing Straight-Through Rate": 95.2,
+    "Error Rate on Approved Claims": 1.5,
+    "Time to Adjudication Reduction": 4.5,
+    "Claim Denial Rate": 8.2,
+    "Compliance Dashboard Accuracy": 96.8,
+    "Integration Accuracy": 98.5,
+    "Processing Latency": 6.5,
+    "Error Rate on Approved Claims_explanation": "Proportion of processing errors found in claims that were approved, indicating quality control effectiveness.",
+    "Time to Adjudication Reduction_explanation": "Percentage improvement in claim adjudication speed compared to manual processing baseline.",
+    "Claim Denial Rate_explanation": "Proportion of claims denied by the system, reflecting accuracy in policy validation and fraud detection.",
+    "Compliance Dashboard Accuracy_explanation": "Accuracy of compliance reporting dashboards in correctly reflecting processed claims data and regulatory status.",
+    "Integration Accuracy_explanation": "Correctness of data synchronization and integration with existing insurance management systems.",
+    "Claims Processing Straight-Through Rate_explanation": "Percentage of claims processed automatically without requiring manual intervention or review.",
+    "Processing Latency_explanation": "Average time in seconds required to process a claim from intake to decision."
+  },
+  "drift": {
+    "has_drift": true,
+    "drift_magnitude": 0.23,
+    "threshold": 0.1,
+    "drifted_features": ["provider_network", "claim_denial_rate", "provider_id"],
+    "drift_share": 0.23,
+    "provider_network_id": "PN-12345",
+    "denial_rate_increase": 23,
+    "affected_claims": 1847,
+    "baseline_denial_rate": 6.7,
+    "current_denial_rate": 8.2,
+    "severity": "critical"
+  },
+  "drift_summary_explanation": "CRITICAL DRIFT ALERT: Model is denying claims from specific provider networks at a significantly higher rate than baseline. Provider network distribution has shifted, with denial rates increasing by 23% for certain network IDs. This triggers an AI GRC risk mitigation workflow requiring immediate investigation.",
+  "data_quality": {
+    "missing_values": 0.002,
+    "constant_columns": ["claim_system_version"]
+  },
+  "alerts": [
+    {
+      "type": "drift",
+      "message": "CRITICAL: Provider network drift detected - 23% increase in denial rates for provider network PN-12345. Human review required for 1,847 affected claims.",
+      "severity": "critical"
+    }
+  ],
+  "status": "⚠️ Needs Review"
+}

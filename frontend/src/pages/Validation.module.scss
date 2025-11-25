@@ -1,0 +1,361 @@
+.container {
+  padding: 24px;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  padding: 24px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1890ff;
+  margin: 0;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #8c8c8c;
+  margin: 4px 0 0 0;
+}
+
+.approvalSection {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.fullWidthSection {
+  margin-bottom: 24px;
+}
+
+.cardSection {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.sectionTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1890ff;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.metricsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.metricCard {
+  background: #f8f9ff;
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+  border: 1px solid #e6f0ff;
+}
+
+.metricValue {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1890ff;
+  margin-bottom: 8px;
+}
+
+.metricLabel {
+  font-size: 12px;
+  color: #595959;
+  font-weight: 500;
+}
+
+.chartContainer {
+  position: relative;
+  height: 300px;
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+
+.ylabel {
+  text-align: center;
+  font-size: 12px;
+  color: #8c8c8c;
+  margin-top: 8px;
+}
+
+.securityThreatsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 24px;
+}
+
+.threatCard {
+  background: #f8f9ff;
+  border-radius: 8px;
+  padding: 20px;
+  border: 1px solid #e6f0ff;
+}
+
+.threatTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1890ff;
+  margin-bottom: 16px;
+}
+
+.threatStats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.threatStat {
+  background: white;
+  border-radius: 6px;
+  padding: 12px;
+  text-align: center;
+
+  .value {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .label {
+    font-size: 11px;
+    color: #8c8c8c;
+    text-transform: uppercase;
+  }
+}
+
+.patternsBox {
+  background: white;
+  border-radius: 6px;
+  padding: 12px;
+}
+
+.patternsTitle {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1890ff;
+  margin-bottom: 8px;
+}
+
+.patternsList {
+  font-size: 12px;
+  color: #595959;
+  margin: 0;
+  padding-left: 20px;
+
+  li {
+    margin-bottom: 4px;
+  }
+}
+
+.filtersSection {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.filtersGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.vulnerabilityStats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  padding: 20px;
+}
+
+.vulnStat {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  border: 2px solid;
+
+  &.critical {
+    border-color: #f5222d;
+    background: #fff1f0;
+  }
+
+  &.high {
+    border-color: #faad14;
+    background: #fffbe6;
+  }
+
+  &.medium {
+    border-color: #722ed1;
+    background: #f9f0ff;
+  }
+
+  &.low {
+    border-color: #52c41a;
+    background: #f6ffed;
+  }
+}
+
+.vulnNumber {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 8px;
+
+  .critical & {
+    color: #f5222d;
+  }
+
+  .high & {
+    color: #faad14;
+  }
+
+  .medium & {
+    color: #722ed1;
+  }
+
+  .low & {
+    color: #52c41a;
+  }
+}
+
+.vulnLabel {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+
+  .critical & {
+    color: #a8071a;
+  }
+
+  .high & {
+    color: #ad6800;
+  }
+
+  .medium & {
+    color: #531dab;
+  }
+
+  .low & {
+    color: #389e0d;
+  }
+}
+
+.antTableContainer {
+  margin-top: 16px;
+
+  :global {
+    .ant-table {
+      font-size: 13px;
+    }
+
+    .ant-table-thead > tr > th {
+      background: #f8f9ff;
+      color: #1890ff;
+      font-weight: 600;
+    }
+  }
+}
+
+.statusTag {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  display: inline-block;
+
+  &.patched,
+  &.validated,
+  &.production,
+  &.approved {
+    background: #f6ffed;
+    color: #52c41a;
+    border: 1px solid #b7eb8f;
+  }
+
+  &.open,
+  &.pending,
+  &.undertesting {
+    background: #fffbe6;
+    color: #faad14;
+    border: 1px solid #ffe58f;
+  }
+
+  &.mitigated {
+    background: #f0f5ff;
+    color: #1890ff;
+    border: 1px solid #adc6ff;
+  }
+}
+
+.tabsContainer {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.versionTimeline {
+  padding: 16px 0;
+}
+
+.versionItem {
+  padding: 16px 0;
+  border-bottom: 1px solid #f0f0f0;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.versionHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.versionNumber {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1890ff;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.versionDate {
+  font-size: 13px;
+  color: #8c8c8c;
+}
+
+.versionChanges {
+  font-size: 13px;
+  color: #595959;
+  line-height: 1.6;
+}

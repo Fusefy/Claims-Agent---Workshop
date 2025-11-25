@@ -1,0 +1,194 @@
+{
+  "claim_processing_agent": {
+    "name": "Claim Processing Agent (Root Orchestrator)",
+    "description": "Main orchestrator that coordinates all sub-agents in the claim processing workflow",
+    "guardrails": [
+      {
+        "rule": "Prompt Injection Protection",
+        "description": "Blocks malicious user inputs attempting to manipulate agent behavior with patterns like 'ignore previous instructions', 'system prompt', 'you are now', or 'override security'"
+      },
+      {
+        "rule": "PII Protection",
+        "description": "Never exposes patient names, SSNs, policy details, fraud scores, or internal technical details in responses or logs"
+      },
+      {
+        "rule": "Sequential Execution Lock",
+        "description": "Cannot skip workflow steps, cannot respond before completion, and cannot proceed without previous step output"
+      },
+      {
+        "rule": "Automatic HITL Routing",
+        "description": "Any tool failure, missing data, or processing error automatically flags claim for human review with user-friendly messaging"
+      },
+      {
+        "rule": "Workflow Execution Guarantee",
+        "description": "Executes all steps in sequence: OCR → Fraud Analysis → Database Insert → Routing Decision → Remittance (if applicable) → User Response"
+      },
+      {
+        "rule": "Error Message Sanitization",
+        "description": "All user-facing error messages are sanitized to hide technical details, defaulting to 'Your claim is being reviewed by our team'"
+      }
+    ]
+  },
+  "clinical_documentation_agent": {
+    "name": "Clinical Documentation Agent (OCR)",
+    "description": "Extracts text from medical documents using Google Cloud Vision API",
+    "guardrails": [
+      {
+        "rule": "Secure Path Validation",
+        "description": "Rejects any file path not starting with gs:// to prevent file system attacks and unauthorized access"
+      },
+      {
+        "rule": "File Type Restrictions",
+        "description": "Only accepts PDF, PNG, JPG, and TIFF formats with strict 10MB size limit enforcement"
+      },
+      {
+        "rule": "Empty Output Prevention",
+        "description": "Validates extracted text is not empty before passing to next agent, with automatic error flagging"
+      },
+      {
+        "rule": "GCS Source Validation",
+        "description": "Enforces valid GCS bucket URIs with proper mime-type detection for document processing"
+      }
+    ]
+  },
+  "adjudication_agent": {
+    "name": "Adjudication Agent (Fraud Detection & Claim Extraction)",
+    "description": "Analyzes claims for fraud patterns and extracts structured claim data using Gemini LLM",
+    "guardrails": [
+      {
+        "rule": "Prompt Injection Detection",
+        "description": "Scans for malicious patterns like 'ignore instructions', 'admin mode', 'bypass security', 'you are now', 'jailbreak' and immediately flags as fraud with error_type='Prompt Injection'"
+      },
+      {
+        "rule": "Confidence Threshold",
+        "description": "Returns confidence score (0.0-1.0) for every analysis; scores below 0.7 automatically trigger HITL review with error_type='Invalid Data'"
+      },
+      {
+        "rule": "Structured Output Only",
+        "description": "Enforces JSON-only responses using response_mime_type='application/json' to prevent markdown, code blocks, or free-form text"
+      },
+      {
+        "rule": "Amount Range Validation",
+        "description": "Enforces claim amounts between $0.01 and $999,999.99; rejects zero, negative, or excessive values"
+      },
+      {
+        "rule": "Date Guardrails",
+        "description": "Requires YYYY-MM-DD format, rejects future dates, and flags dates older than 365 days for verification"
+      },
+      {
+        "rule": "Required Field Enforcement",
+        "description": "Cannot proceed without patient_id, policy_id, claim_amount, and date_of_service with automatic HITL on missing data (error_type='Missing Information')"
+      },
+      {
+        "rule": "Error Type Classification",
+        "description": "Assigns one of 6 error types: None, Prompt Injection, High Amount (>$10K), Missing Information, Fraud Detected, or Invalid Data (confidence<0.7)"
+      },
+      {
+        "rule": "AI Reasoning Length Limit",
+        "description": "Enforces maximum 100 character limit on ai_reasoning field to prevent verbose explanations"
+      },
+      {
+        "rule": "Network Status Validation",
+        "description": "Restricts network_status to three valid values: In-Network, Out-of-Network, or Unknown"
+      },
+      {
+        "rule": "Claim Status Lock",
+        "description": "Always sets claim_status to 'Pending' during analysis; final status determined by downstream agents"
+      }
+    ]
+  },
+  "remittance_agent": {
+    "name": "Remittance Agent (Payment Calculation)",
+    "description": "Calculates approved payment amounts based on policy coverage and network status using Gemini LLM",
+    "guardrails": [
+      {
+        "rule": "Approval Ceiling",
+        "description": "Approved amount cannot exceed original claim amount; automatic capping with logging when LLM attempts to exceed limit"
+      },
+      {
+        "rule": "Network Status Rules",
+        "description": "In-Network: 80-100% coverage, Out-of-Network: 50-70% coverage, Unknown: 60-80% coverage with caution flag"
+      },
+      {
+        "rule": "Zero Payment Prevention",
+        "description": "Rejects approvals with zero or negative amounts; enforces minimum $0.01 approved amount"
+      },
+      {
+        "rule": "Claim Status Validation",
+        "description": "Only processes claims with status='Pending'; returns error for Approved or Denied claims to prevent double-processing"
+      },
+      {
+        "rule": "LLM Temperature Control",
+        "description": "Uses temperature=0.2 for consistent and conservative adjudication decisions"
+      },
+      {
+        "rule": "Reasoning Length Limit",
+        "description": "Enforces maximum 150 character limit on ai_reasoning for concise explanations"
+      },
+      {
+        "rule": "Claim Type Awareness",
+        "description": "Adjusts approval logic based on claim_type (Medical, Dental, Vision, Pharmacy) with type-specific coverage rules"
+      }
+    ]
+  },
+  "HITL_agent": {
+    "name": "Human-in-the-Loop (HITL) Agent",
+    "description": "Routes claims requiring manual review to human reviewers with full audit trail",
+    "guardrails": [
+      {
+        "rule": "Fraud Routing",
+        "description": "Any fraud status other than 'No Fraud' automatically creates HITL queue entry with full audit trail"
+      },
+      {
+        "rule": "High-Value Threshold",
+        "description": "Claims exceeding $10,000 cannot auto-approve and must route to human reviewer regardless of fraud status"
+      },
+      {
+        "rule": "Low Confidence Block",
+        "description": "Claims with confidence scores below 0.7 are blocked from auto-processing and require manual verification"
+      },
+      {
+        "rule": "Missing Data Protection",
+        "description": "Any claim with missing required fields (patient_id, policy_id, claim_amount, date_of_service) automatically routes to HITL"
+      },
+      {
+        "rule": "Prompt Injection Emergency Routing",
+        "description": "Claims flagged with error_type='Prompt Injection' receive highest priority HITL routing for security review"
+      },
+      {
+        "rule": "Status Normalization",
+        "description": "Validates HITL status is one of three allowed values: Approved, Pending, or Denied; defaults to Pending if invalid"
+      },
+      {
+        "rule": "Reviewer Comments Mapping",
+        "description": "Maps reason, hitl_reason, or ai_reasoning fields to reviewer_comments with clear context for human review"
+      }
+    ]
+  },
+  "approval_agent": {
+    "name": "Approval Agent (Final Status Update)",
+    "description": "Finalizes claim approval status and updates database records with payment details",
+    "guardrails": [
+      {
+        "rule": "Dual Verification",
+        "description": "Requires both remittance calculation and approval confirmation before finalizing claim status"
+      },
+      {
+        "rule": "Audit Trail Enforcement",
+        "description": "Every approval must be logged with timestamp, approved_amount, and ai_reasoning for compliance"
+      },
+      {
+        "rule": "Status Immutability",
+        "description": "Once approved, claim status cannot be changed by AI agents; requires manual intervention for modifications"
+      },
+      {
+        "rule": "Payment Status Synchronization",
+        "description": "Automatically sets payment_status='Approved' when claim_status changes to 'Approved'"
+      },
+      {
+        "rule": "Database Update Validation",
+        "description": "Verifies database update succeeded before confirming approval to prevent inconsistent state"
+      }
+    ]
+  }
+}

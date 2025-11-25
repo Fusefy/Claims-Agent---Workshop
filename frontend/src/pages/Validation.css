@@ -1,0 +1,173 @@
+.validation-container {
+  padding: 24px;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.metric-card {
+  background: #f8f9ff;
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+  border: 1px solid #e6f0ff;
+}
+
+.metric-value {
+  font-size: 32px;
+  font-weight: 700;
+  color: hsl(var(--primary));
+  margin-bottom: 8px;
+}
+
+.metric-label {
+  font-size: 12px;
+  color: hsl(var(--muted-foreground));
+  font-weight: 500;
+}
+
+.metric-card-enhanced {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: all 0.3s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.metric-card-enhanced:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.metric-icon-wrapper {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.metric-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.metric-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.metric-value-large {
+  font-size: 2.25rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.metric-label-enhanced {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1f2937;
+  line-height: 1.3;
+}
+
+.metric-description {
+  font-size: 0.8rem;
+  color: #6b7280;
+  line-height: 1.4;
+}
+
+.threat-stat {
+  background: hsl(var(--muted));
+  border-radius: 6px;
+  padding: 12px;
+  text-align: center;
+}
+
+.patterns-box {
+  background: white;
+  border-radius: 6px;
+  padding: 12px;
+  margin-top: 16px;
+}
+
+.vuln-stat {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  border: 2px solid;
+}
+
+.vuln-stat.critical {
+  border-color: #f5222d;
+  background: #fff1f0;
+}
+
+.vuln-stat.high {
+  border-color: #faad14;
+  background: #fffbe6;
+}
+
+.vuln-stat.medium {
+  border-color: #722ed1;
+  background: #f9f0ff;
+}
+
+.vuln-stat.low {
+  border-color: #52c41a;
+  background: #f6ffed;
+}
+
+.vuln-number {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.vuln-stat.critical .vuln-number {
+  color: #f5222d;
+}
+
+.vuln-stat.high .vuln-number {
+  color: #faad14;
+}
+
+.vuln-stat.medium .vuln-number {
+  color: #722ed1;
+}
+
+.vuln-stat.low .vuln-number {
+  color: #52c41a;
+}
+
+.vuln-label {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.vuln-stat.critical .vuln-label {
+  color: #a8071a;
+}
+
+.vuln-stat.high .vuln-label {
+  color: #ad6800;
+}
+
+.vuln-stat.medium .vuln-label {
+  color: #531dab;
+}
+
+.vuln-stat.low .vuln-label {
+  color: #389e0d;
+}
+
+.version-item {
+  padding-bottom: 16px;
+}

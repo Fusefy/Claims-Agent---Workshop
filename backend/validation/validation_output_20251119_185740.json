@@ -1,0 +1,182 @@
+{
+  "timestamp": "2025-11-19T18:57:30.610546",
+  "script_name": "validation_script.py",
+  "description": "End-to-end validation of all tools and agents with dynamic output capture",
+  "document_info": {
+    "source": "sample_generated",
+    "file_name": "claim_document.pdf",
+    "file_size_bytes": 943,
+    "loaded_at": "2025-11-19T18:57:33.303836"
+  },
+  "tools_tested": [
+    {
+      "tool_name": "gcs_upload_tool",
+      "status": "success",
+      "timestamp": "2025-11-19T18:57:35.048463",
+      "execution_time_ms": 1743.327,
+      "result": {
+        "gcs_path": "gs://claimwise-claims/claims/20251119/4b805d25/claim_document.pdf"
+      },
+      "error": null,
+      "captured_logs": []
+    },
+    {
+      "tool_name": "ocr_extraction_tool",
+      "status": "success",
+      "timestamp": "2025-11-19T18:57:36.701349",
+      "execution_time_ms": 1651.163,
+      "result": {
+        "gcs_path": "gs://claimwise-claims/claims/20251119/4b805d25/claim_document.pdf",
+        "file_name": "claim_document.pdf",
+        "extracted_text_length": 247,
+        "extracted_text_preview": "Patient Name: John Smith\nPolicy ID: POL-12345\nClaim Type: Medical\nNetwork Status: In-Network\nDate of Service: 2025-11-01\nClaim Amount: $4500.00\nDiagnosis: Annual Physical\nProcedure Code: 99385\nProvider: Dr. Smith Medical Center\nCustomer ID: C12345",
+        "full_extracted_text": "Patient Name: John Smith\nPolicy ID: POL-12345\nClaim Type: Medical\nNetwork Status: In-Network\nDate of Service: 2025-11-01\nClaim Amount: $4500.00\nDiagnosis: Annual Physical\nProcedure Code: 99385\nProvider: Dr. Smith Medical Center\nCustomer ID: C12345"
+      },
+      "error": null,
+      "captured_logs": []
+    },
+    {
+      "tool_name": "llm_analysis_tool",
+      "status": "success",
+      "timestamp": "2025-11-19T18:57:40.348083",
+      "execution_time_ms": 3644.27,
+      "result": {
+        "input_metadata": {
+          "customer_id": "C12345",
+          "policy_id": "POL-12345",
+          "gcs_path": "gs://claimwise-claims/claims/20251119/4b805d25/claim_document.pdf"
+        },
+        "input_text_length": 247,
+        "analysis_result": {
+          "claim_name": "Dr. Smith - Annual Physical",
+          "patient_id": "C12345",
+          "policy_id": "POL-12345",
+          "claim_type": "Medical",
+          "network_status": "In-Network",
+          "date_of_service": "2025-11-01",
+          "claim_amount": 4500.0,
+          "approved_amount": 0.0,
+          "claim_status": "Pending",
+          "error_type": "None",
+          "ai_reasoning": "Standard processing - all info valid",
+          "fraud_status": "No Fraud",
+          "confidence": 1.0,
+          "fraud_reason": null,
+          "hitl_flag": false,
+          "claim_id": "CLM-2025-E23F7E"
+        },
+        "execution_time_ms": 3644.27
+      },
+      "error": null,
+      "captured_logs": []
+    },
+    {
+      "tool_name": "generate_unique_claim_id",
+      "status": "success",
+      "timestamp": "2025-11-19T18:57:40.351089",
+      "execution_time_ms": 0.416,
+      "result": {
+        "claim_id": "CLM-2025-CA5EE3",
+        "format": "CLM-YYYY-XXXXXX",
+        "year": 2025
+      },
+      "error": null,
+      "captured_logs": []
+    },
+    {
+      "tool_name": "remittance_processing_tool",
+      "status": "simulated",
+      "timestamp": "2025-11-19T18:57:40.361676",
+      "execution_time_ms": 9.133000000000001,
+      "result": {
+        "claim_id": "CLM-2025-E23F7E",
+        "original_amount": 4500.0,
+        "approved_amount": 4050.0,
+        "approval_percentage": 90,
+        "ai_reasoning": "In-Network: 90% coverage applied per policy terms",
+        "coverage_details": {
+          "network_adjustment": "Network status applied",
+          "policy_coverage": "Standard 90% coverage for In-Network",
+          "amount_justification": "Amount approved based on policy coverage"
+        },
+        "execution_time_ms": 9.133000000000001,
+        "note": "Simulated result (database unavailable)",
+        "error_fallback": true
+      },
+      "error": null,
+      "captured_logs": []
+    }
+  ],
+  "agents_tested": [
+    {
+      "agent_name": "ClaimProcessingAgent",
+      "status": "success",
+      "timestamp": "2025-11-19T18:57:40.363291",
+      "result": {
+        "agent_name": "ClaimProcessingAgent",
+        "workflow_path": "Remittance Processing",
+        "claim_id": "CLM-2025-E23F7E",
+        "claim_status": "Approved",
+        "steps_completed": [
+          {
+            "step": 1,
+            "name": "GCS Upload",
+            "status": "completed",
+            "details": "File: claim_document.pdf, GCS Path: gs://claimwise-claims/claims/20251119/4b805d25/claim_document.pdf"
+          },
+          {
+            "step": 2,
+            "name": "OCR Extraction",
+            "status": "completed",
+            "details": "Extracted: 247 characters"
+          },
+          {
+            "step": 3,
+            "name": "LLM Analysis",
+            "status": "completed",
+            "details": "Claim ID: CLM-2025-E23F7E, Fraud: No Fraud"
+          },
+          {
+            "step": 4,
+            "name": "Database Insert",
+            "status": "simulated",
+            "details": "Claim stored in database"
+          },
+          {
+            "step": 5,
+            "name": "Remittance Processing",
+            "status": "completed",
+            "details": "Approved: $4050.00"
+          },
+          {
+            "step": 6,
+            "name": "Approval Update",
+            "status": "simulated",
+            "details": "Claim marked as Approved"
+          }
+        ],
+        "final_status": "Approved",
+        "execution_time_ms": 0.031
+      }
+    }
+  ],
+  "summary": {
+    "total_tools_tested": 5,
+    "successful_tools": 4,
+    "failed_tools": 0,
+    "skipped_tools": 0,
+    "simulated_tools": 1,
+    "agents_tested": 1,
+    "overall_status": "PASSED",
+    "document_file": "claim_document.pdf",
+    "claim_id": "CLM-2025-E23F7E",
+    "claim_name": "Dr. Smith - Annual Physical",
+    "claim_amount": 4500.0,
+    "approved_amount": 4050.0,
+    "approval_percentage": 90,
+    "fraud_status": "No Fraud",
+    "hitl_flag": false,
+    "workflow_path": "Remittance Processing",
+    "final_claim_status": "Approved"
+  }
+}

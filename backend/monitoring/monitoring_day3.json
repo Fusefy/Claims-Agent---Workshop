@@ -1,0 +1,53 @@
+{
+  "run_id": "2025-09-30_job001",
+  "job_id": "CLAIMS_AGENT_JOB001",
+  "input_dataset": "ds_claims_core_001",
+  "model_id": "Claims-Processing-Agent-Core_v2.0.0",
+  "model_type": "claims_processing_agent",
+  "is_baseline": true,
+  "monitoring_window": {
+    "start_time": "2025-09-30T00:00:00Z",
+    "end_time": "2025-09-30T23:59:59Z"
+  },
+  "metrics": {
+   "Claims Processing Straight-Through Rate": 93.1,
+    "Error Rate on Approved Claims": 1.2,
+    "Time to Adjudication Reduction": 3.2,
+    "Claim Denial Rate": 6.4,
+    "Compliance Dashboard Accuracy": 95.6,
+    "Integration Accuracy": 99.9,
+    "Processing Latency": 6.0,
+    "Error Rate on Approved Claims_explanation": "Proportion of processing errors found in claims that were approved, indicating quality control effectiveness.",
+    "Time to Adjudication Reduction_explanation": "Percentage improvement in claim adjudication speed compared to manual processing baseline.",
+    "Claim Denial Rate_explanation": "Proportion of claims denied by the system, reflecting accuracy in policy validation and fraud detection.",
+    "Compliance Dashboard Accuracy_explanation": "Accuracy of compliance reporting dashboards in correctly reflecting processed claims data and regulatory status.",
+    "Integration Accuracy_explanation": "Correctness of data synchronization and integration with existing insurance management systems.",
+    "Claims Processing Straight-Through Rate_explanation": "Percentage of claims processed automatically without requiring manual intervention or review.",
+    "Processing Latency_explanation": "Average time in seconds required to process a claim from intake to decision."
+  },
+  "drift": {
+    "has_drift": true,
+    "drift_magnitude": 0.08,
+    "threshold": 0.1,
+    "drifted_features": ["account_number_masking_failure"],
+    "drift_share": 0.11,
+    "data_privacy_issues": {
+      "unmasked_fields": ["policyholder_account_number"],
+      "affected_claims": 1243,
+      "severity": "critical",
+      "details": "PII masking not applied to policyholder account numbers in claims processing output"
+    }
+  },
+  "data_quality": {
+    "missing_values": 0.003,
+    "constant_columns": ["claim_system_version"]
+  },
+  "alerts": [
+    {
+      "type": "data_privacy",
+      "message": "CRITICAL: Drift detected - PII masking not applied to policyholder account numbers. Sensitive data exposed in 1,243 processed claims.",
+      "severity": "critical"
+    }
+  ],
+  "status": "⚠️ Needs Improvement"
+}

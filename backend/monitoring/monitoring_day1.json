@@ -1,0 +1,47 @@
+{
+  "run_id": "2025-11-05_job003",
+  "job_id": "CLAIMS_AGENT_JOB003",
+  "input_dataset": "ds_claims_core_001",
+  "model_id": "Claims-Processing-Agent-Core_v2.1.0",
+  "model_type": "claims_processing_agent",
+  "is_baseline": false,
+  "monitoring_window": {
+    "start_time": "2025-11-05T00:00:00Z",
+    "end_time": "2025-11-05T23:59:59Z"
+  },
+  "metrics": {
+    "Claims Processing Straight-Through Rate": 98.1,
+    "Error Rate on Approved Claims": 1.4,
+    "Time to Adjudication Reduction": 4.2,
+    "Claim Denial Rate": 6.7,
+    "Compliance Dashboard Accuracy": 97.6,
+    "Integration Accuracy": 98.9,
+    "Processing Latency": 7.0,
+    "Error Rate on Approved Claims_explanation": "Proportion of processing errors found in claims that were approved, indicating quality control effectiveness.",
+    "Time to Adjudication Reduction_explanation": "Percentage improvement in claim adjudication speed compared to manual processing baseline.",
+    "Claim Denial Rate_explanation": "Proportion of claims denied by the system, reflecting accuracy in policy validation and fraud detection.",
+    "Compliance Dashboard Accuracy_explanation": "Accuracy of compliance reporting dashboards in correctly reflecting processed claims data and regulatory status.",
+    "Integration Accuracy_explanation": "Correctness of data synchronization and integration with existing insurance management systems.",
+    "Claims Processing Straight-Through Rate_explanation": "Percentage of claims processed automatically without requiring manual intervention or review.",
+    "Processing Latency_explanation": "Average time in seconds required to process a claim from intake to decision."
+  },
+  "drift": {
+    "has_drift": false,
+    "drift_magnitude": 0.0,
+    "threshold": 0.1,
+    "drifted_features": [],
+    "drift_share": 0.0
+  },
+  "data_quality": {
+    "missing_values": 0.001,
+    "constant_columns": ["claim_system_version"]
+  },
+  "alerts": [
+    {
+      "type": "performance",
+      "message": "All metrics meeting target thresholds. System performing optimally.",
+      "severity": "info"
+    }
+  ],
+  "status": "✅ Success"
+}
